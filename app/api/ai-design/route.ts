@@ -21,58 +21,31 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const prompt = `You are a professional LinkedIn carousel designer. Create a slide with perfect visual hierarchy, spacing, and typography.
+    const prompt = `You are a LinkedIn carousel designer. Your ONLY job is to:
 
-EXACT TAILWIND CLASS NAMES (Copy exactly, no substitutions):
-=============================================================
+1. READ the user request
+2. CHOOSE the BEST template from the list below
+3. CUSTOMIZE ONLY the TEXT content in that template
+4. DO NOT change any HTML tags, class names, or structure
+5. DO NOT modify Tailwind classes, colors, or spacing
 
-TEXT SIZES - Use EXACTLY these classes:
-- text-[90px] (for blue blocks with font-black + uppercase)
-- text-[85px] (for stat blocks)
-- text-[62px] (for headlines)
-- text-[40px] (for subheadings)
-- text-[36px] (for body text)
-- text-[24px] (for captions)
-
-FONT WEIGHTS - Use EXACTLY these classes:
-- font-black (ONLY for headlines, blue blocks, stats - makes text bold and heavy)
-- font-semibold (ONLY for body text - medium weight)
-
-COLORS - Use EXACTLY these classes:
-- text-gray-900 (for all body and headline text)
-- text-white (for text on blue blocks only)
-- bg-[#10348C] (ONLY for blue blocks with text-white)
-
-SPACING - Use EXACTLY these classes:
-- gap-8 (main container spacing)
-- gap-12 or gap-14 (between major sections)
-- gap-7 (between list items)
-
-LINE HEIGHT - Use EXACTLY these classes:
-- leading-tight (for all text)
-- leading-none (ONLY with uppercase blue blocks)
-
-CONTAINER - Use EXACTLY this wrapper:
-<div class="flex flex-col gap-8 items-start">
-  YOUR CONTENT HERE
-</div>
-
-CRITICAL FORMATTING RULES:
-1. All class names must use SQUARE BRACKETS with units: text-[90px] NOT text-90
-2. Use DOUBLE QUOTES for all HTML attributes
-3. Return VALID JSON only
-4. HTML code goes inside "customCode" value
-5. Add backslashes before quotes inside HTML strings
+AVAILABLE TEMPLATES:
+${templates.map(t => `Name: "${t.name}" (${t.category})\n${t.code}`).join('\n\n---\n\n')}
 
 USER REQUEST: "${description}"
 
-RESPOND WITH EXACTLY THIS FORMAT (valid JSON):
+Return ONLY this JSON:
 {
-  "customCode": "<div class=\\"flex flex-col gap-8 items-start\\">...</div>",
-  "explanation": "brief description"
+  "templateName": "name of chosen template",
+  "customCode": "template with ONLY text replaced",
+  "explanation": "why this template works"
 }
 
-REMEMBER: Copy class names EXACTLY as shown above. Do not use shorthand.`;
+CRITICAL - Do NOT modify:
+- Any HTML tags or structure
+- Any Tailwind classes
+- Any colors, spacing, or font sizes
+- ONLY change text content between tags`;
 
     // Initialize Groq client
     const groq = new Groq({ apiKey });
@@ -153,102 +126,18 @@ REMEMBER: Copy class names EXACTLY as shown above. Do not use shorthand.`;
       }
     }
 
-    // Validate response structure
+    // Validate response
     if (!result.customCode || !result.explanation) {
       return NextResponse.json(
-        { error: 'Invalid response structure from AI' },
+        { error: 'Invalid response structure' },
         { status: 500 }
       );
-    }
-
-    // Validate code structure - must have proper wrapper and allowed classes only
-    const code = result.customCode;
-    const allowedClasses = [
-      'flex',
-      'flex-col',
-      'gap-8',
-      'items-start',
-      'bg-[#10348C]',
-      'text-white',
-      'text-[90px]',
-      'text-[85px]',
-      'text-[62px]',
-      'text-[40px]',
-      'text-[36px]',
-      'text-[24px]',
-      'text-[20px]',
-      'text-gray-900',
-      'font-black',
-      'font-semibold',
-      'font-bold',
-      'px-16',
-      'px-20',
-      'py-11',
-      'py-10',
-      'tracking-tight',
-      'leading-none',
-      'leading-tight',
-      'leading-snug',
-      'uppercase',
-      'text-center',
-      'italic',
-      'border-l-4',
-      'border-[#10348C]',
-      'pl-8',
-      'py-4',
-      'h-px',
-      'bg-gray-300',
-      'my-8',
-      'w-full',
-      'break-word',
-      'inline-block',
-      'translate-none',
-      'scale-100'
-    ];
-
-    // Check for invalid class patterns
-    const classRegex = /class="([^"]*)"/g;
-    let match;
-    while ((match = classRegex.exec(code)) !== null) {
-      const classes = match[1].split(' ').filter((c: string) => c.trim());
-      for (const cls of classes) {
-        if (!allowedClasses.includes(cls)) {
-          console.warn('Invalid class found:', cls);
-          // Only warn, don't reject - AI might use harmless variants
-        }
-      }
-    }
-
-    // Light validation - fix common shorthand classes and remove inline styles
-    if (result.customCode.includes('style=')) {
-      console.warn('Removing inline styles');
-      result.customCode = result.customCode.replace(/\s*style="[^"]*"/g, '');
-    }
-
-    // Fix common shorthand text sizes (e.g., text-90 -> text-[90px])
-    result.customCode = result.customCode
-      .replace(/text-90(?!0|\[)/g, 'text-[90px]')
-      .replace(/text-85(?!0|\[)/g, 'text-[85px]')
-      .replace(/text-62(?!0|\[)/g, 'text-[62px]')
-      .replace(/text-40(?!0|\[)/g, 'text-[40px]')
-      .replace(/text-36(?!0|\[)/g, 'text-[36px]')
-      .replace(/text-24(?!0|\[)/g, 'text-[24px]')
-      .replace(/text-20(?!0|\[)/g, 'text-[20px]');
-
-    // Fix improper leading classes
-    result.customCode = result.customCode
-      .replace(/leading-normal/g, 'leading-tight')
-      .replace(/leading-loose/g, 'leading-tight');
-
-    // Ensure proper wrapper exists
-    if (!result.customCode.includes('flex flex-col gap-8 items-start')) {
-      console.warn('Adding proper wrapper');
-      result.customCode = `<div class="flex flex-col gap-8 items-start">${result.customCode}</div>`;
     }
 
     return NextResponse.json({
       customCode: result.customCode,
       explanation: result.explanation,
+      templateName: result.templateName || 'Custom',
     });
   } catch (error) {
     console.error('API Error:', error);
