@@ -123,3 +123,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Custom Slide Content Styles - Ensure Tailwind classes work in dangerouslySetInnerHTML */
+.custom-slide-content {
+  @apply flex flex-col;
+}
+
+.custom-slide-content * {
+  @apply transition-none;
+}

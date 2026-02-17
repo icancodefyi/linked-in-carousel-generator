@@ -4,6 +4,8 @@ import { useState, useRef } from 'react';
 import { CustomSlide } from '@/components/slides/CustomSlide';
 import CodeEditor from '@/components/CodeEditor';
 import DownloadButton from '@/components/DownloadButton';
+import TemplateSelector from '@/components/TemplateSelector';
+import AIDesignChat from '@/components/AIDesignChat';
 
 interface SlideData {
   htmlCode: string;
@@ -19,33 +21,36 @@ export default function Page() {
   const [slides, setSlides] = useState<SlideData[]>([
     {
       htmlCode: `<div class="flex flex-col gap-8 items-start">
-  <div class="bg-[#10348C] text-white text-[80px] font-bold px-12 py-10 tracking-tight leading-[1.1]">
+  <div class="bg-[#10348C] text-white text-[90px] font-black px-16 py-11 tracking-tight leading-none uppercase">
     YOU CANNOT
   </div>
-  <div class="bg-[#10348C] text-white text-[80px] font-bold px-12 py-10 tracking-tight leading-[1.1]">
+  <div class="bg-[#10348C] text-white text-[90px] font-black px-16 py-11 tracking-tight leading-none uppercase">
     CALL THIS
   </div>
-  <div class="bg-[#10348C] text-white text-[80px] font-bold px-12 py-10 tracking-tight leading-[1.1]">
+  <div class="bg-[#10348C] text-white text-[90px] font-black px-16 py-11 tracking-tight leading-none uppercase">
     EVIDENCE
   </div>
 </div>`,
     },
     {
-      htmlCode: `<div class="flex flex-col gap-6">
-  <h2 class="text-[56px] font-bold text-gray-900 leading-[1.2]">
-    Most AI detection tools only provide a probability score.
+      htmlCode: `<div class="flex flex-col gap-12">
+  <h2 class="text-[62px] font-black text-gray-900 leading-tight">
+    Most AI detection tools<br/>only provide<br/>a probability score.
   </h2>
-  <div class="bg-gray-100 p-8 text-center">
-    <div class="text-[64px] font-bold text-gray-900 leading-none">87% REAL</div>
+  
+  <div class="flex flex-col gap-7 w-full">
+    <div class="bg-[#10348C] text-white text-[85px] font-black px-20 py-11 tracking-tight leading-none text-center">
+      87% REAL
+    </div>
+    <div class="bg-[#10348C] text-white text-[85px] font-black px-20 py-11 tracking-tight leading-none text-center">
+      92% FAKE
+    </div>
   </div>
-  <div class="bg-gray-100 p-8 text-center">
-    <div class="text-[64px] font-bold text-gray-900 leading-none">92% FAKE</div>
-  </div>
-  <div class="h-12"></div>
-  <p class="text-[40px] font-semibold text-gray-900 leading-[1.3]">
+  
+  <p class="text-[48px] font-bold text-gray-900 leading-tight">
     That is not evidence.
   </p>
-</div>`,
+</div>`
     },
   ]);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -83,12 +88,12 @@ export default function Page() {
 
   const handleAddSlide = () => {
     const newSlide: SlideData = {
-      htmlCode: `<div class="flex flex-col gap-8 items-start">
-  <div class="text-[56px] font-bold text-gray-900 leading-[1.2]">
+      htmlCode: `<div class="flex flex-col gap-12">
+  <h2 class="text-[62px] font-black text-gray-900 leading-tight">
     New Slide
-  </div>
-  <p class="text-[32px] text-gray-700 leading-[1.4]">
-    Start customizing with fixed text sizes...
+  </h2>
+  <p class="text-[36px] font-semibold text-gray-700 leading-snug">
+    Start creating amazing content...
   </p>
 </div>`,
     };
@@ -115,10 +120,10 @@ export default function Page() {
       <div style={{ maxWidth: '1600px', margin: '0 auto' }}>
         <div style={{ marginBottom: '40px' }}>
           <h1 style={{ fontSize: '32px', fontWeight: 'bold', color: '#1F2937', marginBottom: '8px', fontFamily: 'var(--font-inter-tight), system-ui, -apple-system, sans-serif' }}>
-            Brand Composition Engine
+            LinkedIn Carousel Generator
           </h1>
           <p style={{ fontSize: '15px', color: '#6B7280', fontFamily: 'var(--font-inter-tight), system-ui, -apple-system, sans-serif' }}>
-            Guardrails, not prison. Compose freely within brand constraints.
+            Create stunning carousel posts with professional templates and custom styling. Code with Tailwind, preview instantly.
           </p>
         </div>
 
@@ -126,13 +131,33 @@ export default function Page() {
           {/* Left: Code Editor */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div>
-              <h2 style={{ fontSize: '18px', fontWeight: '600', color: '#1F2937', marginBottom: '12px', fontFamily: 'var(--font-inter-tight), system-ui, -apple-system, sans-serif' }}>Custom Code Editor</h2>
+              <h2 style={{ fontSize: '18px', fontWeight: '600', color: '#1F2937', marginBottom: '12px', fontFamily: 'var(--font-inter-tight), system-ui, -apple-system, sans-serif' }}>🎨 Code Editor</h2>
               <CodeEditor onCodeChange={handleCodeChange} initialCode={currentCode} key={currentSlideIndex} />
             </div>
 
+            {/* Template Selector */}
+            <TemplateSelector onSelectTemplate={(template) => {
+              setCurrentCode(template);
+              handleCodeChange(template);
+            }} />
+
+            {/* AI Design Chat */}
+            <AIDesignChat 
+              onDesignGenerated={(code) => {
+                const newSlide: SlideData = { htmlCode: code };
+                const newSlides = [...slides, newSlide];
+                setSlides(newSlides);
+                setCurrentSlideIndex(newSlides.length - 1);
+                setCurrentCode(code);
+              }}
+              onAddSlide={() => {
+                // Chat will trigger the generation, we handle it above
+              }}
+            />
+
             {/* Slide Management */}
             <div style={{ backgroundColor: '#FFFFFF', padding: '20px', borderRadius: '12px', border: '1px solid #E5E7EB', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-              <h3 style={{ fontSize: '14px', fontWeight: '600', color: '#1F2937', marginBottom: '16px', fontFamily: 'var(--font-inter-tight), system-ui, -apple-system, sans-serif' }}>Slide Management</h3>
+              <h3 style={{ fontSize: '14px', fontWeight: '600', color: '#1F2937', marginBottom: '16px', fontFamily: 'var(--font-inter-tight), system-ui, -apple-system, sans-serif' }}>🎬 Slide Management</h3>
               <div style={{ display: 'flex', gap: '12px' }}>
                 <button
                   onClick={handleAddSlide}
@@ -147,9 +172,12 @@ export default function Page() {
                     fontSize: '14px',
                     fontWeight: '600',
                     fontFamily: 'var(--font-inter-tight), system-ui, -apple-system, sans-serif',
+                    transition: 'all 0.2s',
                   }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#0D2B70'}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#10348C'}
                 >
-                  + Add Slide
+                  + Add New Slide
                 </button>
                 <button
                   onClick={handleDeleteSlide}
@@ -165,16 +193,23 @@ export default function Page() {
                     fontSize: '14px',
                     fontWeight: '600',
                     fontFamily: 'var(--font-inter-tight), system-ui, -apple-system, sans-serif',
+                    transition: 'all 0.2s',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (slides.length > 1) e.currentTarget.style.backgroundColor = '#B91C1C';
+                  }}
+                  onMouseLeave={(e) => {
+                    if (slides.length > 1) e.currentTarget.style.backgroundColor = '#DC2626';
                   }}
                 >
-                  Delete Slide
+                  🗑️ Delete
                 </button>
               </div>
             </div>
 
             {/* User Profile Config */}
             <div style={{ backgroundColor: '#FFFFFF', padding: '20px', borderRadius: '12px', border: '1px solid #E5E7EB', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-              <h3 style={{ fontSize: '14px', fontWeight: '600', color: '#1F2937', marginBottom: '16px', fontFamily: 'var(--font-inter-tight), system-ui, -apple-system, sans-serif' }}>User Profile</h3>
+              <h3 style={{ fontSize: '14px', fontWeight: '600', color: '#1F2937', marginBottom: '16px', fontFamily: 'var(--font-inter-tight), system-ui, -apple-system, sans-serif' }}>👤 Profile Settings</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 <input
                   type="text"
@@ -192,7 +227,7 @@ export default function Page() {
                 />
                 <input
                   type="text"
-                  placeholder="Image URL"
+                  placeholder="Profile Image URL"
                   value={userProfile.image}
                   onChange={(e) => setUserProfile({ ...userProfile, image: e.target.value })}
                   style={{ width: '100%', padding: '10px 12px', fontSize: '12px', border: '1px solid #E5E7EB', borderRadius: '6px', fontFamily: 'var(--font-inter-tight), system-ui, -apple-system, sans-serif', outline: 'none' }}

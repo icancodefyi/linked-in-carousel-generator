@@ -1,5 +1,4 @@
 import SlideLayout from './SlideLayout';
-import { layoutConfig } from '@/lib/layout-config';
 
 interface UserProfile {
   name: string;
@@ -28,11 +27,7 @@ export function CustomSlide({
     >
       <div 
         dangerouslySetInnerHTML={{ __html: htmlCode }}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: `${layoutConfig.verticalSpacing}px`,
-        }}
+        className="custom-slide-content"
       />
     </SlideLayout>
   );

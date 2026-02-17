@@ -1,27 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface CodeEditorProps {
   onCodeChange: (code: string) => void;
   initialCode?: string;
 }
 
-const DEFAULT_CODE = `<!-- FIXED TEXT SIZE HIERARCHY - USE THESE SIZES ONLY:
-  - Hero/Main (blue blocks): text-[80px] leading-[1.1]
-  - Headline: text-[56px] leading-[1.2] 
-  - Subheadline: text-[40px] leading-[1.3]
-  - Body Large: text-[32px] leading-[1.4]
-  - Body: text-[24px] leading-[1.5]
-  - Caption: text-[20px] leading-[1.5]
--->
-
-<div class="flex flex-col gap-8 items-start">
-  <div class="bg-[#10348C] text-white text-[80px] font-bold px-12 py-10 tracking-tight leading-[1.1]">
+const DEFAULT_CODE = `<div class="flex flex-col gap-8 items-start">
+  <div class="bg-[#10348C] text-white text-[90px] font-black px-16 py-11 tracking-tight leading-none uppercase">
     YOU CANNOT
   </div>
-  <div class="bg-[#10348C] text-white text-[80px] font-bold px-12 py-10 tracking-tight leading-[1.1]">
+  <div class="bg-[#10348C] text-white text-[90px] font-black px-16 py-11 tracking-tight leading-none uppercase">
     CALL THIS
   </div>
-  <div class="bg-[#10348C] text-white text-[80px] font-bold px-12 py-10 tracking-tight leading-[1.1]">
+  <div class="bg-[#10348C] text-white text-[90px] font-black px-16 py-11 tracking-tight leading-none uppercase">
     EVIDENCE
   </div>
 </div>`;
@@ -29,14 +20,68 @@ const DEFAULT_CODE = `<!-- FIXED TEXT SIZE HIERARCHY - USE THESE SIZES ONLY:
 export default function CodeEditor({ onCodeChange, initialCode }: CodeEditorProps) {
   const [code, setCode] = useState(initialCode || DEFAULT_CODE);
 
+  // Sync internal state when initialCode prop changes (e.g., when template is selected)
+  useEffect(() => {
+    if (initialCode !== undefined) {
+      setCode(initialCode);
+    }
+  }, [initialCode]);
+
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setCode(value);
     onCodeChange(value);
   };
 
+  const quickInserts = [
+    { label: 'Hero Block', code: '<div class="bg-[#10348C] text-white text-[90px] font-black px-16 py-11 tracking-tight leading-none uppercase">\n  YOUR TEXT\n</div>' },
+    { label: 'Headline', code: '<h2 class="text-[62px] font-black text-gray-900 leading-tight">\n  Your Headline\n</h2>' },
+    { label: 'Body Text', code: '<p class="text-[36px] font-semibold text-gray-900 leading-snug">\n  Your paragraph text here.\n</p>' },
+    { label: 'Stat Box', code: '<div class="bg-[#10348C] text-white text-[85px] font-black px-20 py-11 tracking-tight leading-none text-center">\n  95%\n</div>' },
+  ];
+
+  const insertSnippet = (snippet: string) => {
+    const textarea = document.querySelector('textarea');
+    if (textarea) {
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const newCode = code.substring(0, start) + '\n' + snippet + '\n' + code.substring(end);
+      setCode(newCode);
+      onCodeChange(newCode);
+    }
+  };
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      {/* Quick Insert Buttons */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+        {quickInserts.map((insert, idx) => (
+          <button
+            key={idx}
+            onClick={() => insertSnippet(insert.code)}
+            style={{
+              padding: '6px 10px',
+              fontSize: '11px',
+              fontWeight: '600',
+              backgroundColor: '#F3F4F6',
+              color: '#374151',
+              border: '1px solid #E5E7EB',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              fontFamily: 'var(--font-inter-tight), system-ui, -apple-system, sans-serif',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#E5E7EB';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = '#F3F4F6';
+            }}
+          >
+            + {insert.label}
+          </button>
+        ))}
+      </div>
+
       <textarea
         value={code}
         onChange={handleChange}
@@ -44,7 +89,7 @@ export default function CodeEditor({ onCodeChange, initialCode }: CodeEditorProp
         spellCheck={false}
         style={{
           width: '100%',
-          height: '500px',
+          height: '450px',
           padding: '16px',
           border: '1px solid #E5E7EB',
           borderRadius: '12px',
@@ -60,7 +105,7 @@ export default function CodeEditor({ onCodeChange, initialCode }: CodeEditorProp
         }}
       />
       <div style={{ fontSize: '11px', color: '#6B7280', fontFamily: 'var(--font-inter-tight), system-ui, -apple-system, sans-serif', lineHeight: '1.5' }}>
-        <strong style={{ color: '#374151', fontSize: '12px' }}>Fixed Text Sizes:</strong> Hero: text-[80px] • Headline: text-[56px] • Subhead: text-[40px] • Large: text-[32px] • Body: text-[24px] • Caption: text-[20px]
+        <strong style={{ color: '#374151', fontSize: '12px' }}>Pro Tip:</strong> Use font-black (not bold), leading-tight/none, and text-[90px] for hero blocks • text-[62px] for headlines • text-[36px] for body
       </div>
     </div>
   );

@@ -12,20 +12,20 @@ export default function GridOverlay() {
             90deg,
             transparent,
             transparent 99px,
-            #F3F4F6 99px,
-            #F3F4F6 100px
+            #E5E7EB 99px,
+            #E5E7EB 100px
           ),
           repeating-linear-gradient(
             0deg,
             transparent,
             transparent 99px,
-            #F3F4F6 99px,
-            #F3F4F6 100px
+            #E5E7EB 99px,
+            #E5E7EB 100px
           )
         `,
-        opacity: 0.02,
+        opacity: 0.35,
         pointerEvents: 'none',
-        zIndex: 1,
+        zIndex: 0,
       }}
     />
   );

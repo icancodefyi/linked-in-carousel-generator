@@ -45,6 +45,8 @@ export default function SlideLayout({
           paddingTop: `${layoutConfig.topPadding}px`,
           paddingRight: `${layoutConfig.rightPadding}px`,
           flex: 1,
+          position: 'relative',
+          zIndex: 1,
         }}
       >
         {children}
