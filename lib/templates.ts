@@ -132,5 +132,130 @@ export const templates: Template[] = [
     of businesses will use<br/>AI by 2027
   </p>
 </div>`
+  },
+  {
+    id: 'premium-statement',
+    name: 'Premium Statement',
+    category: 'hero',
+    code: `<div class="flex flex-col gap-16 items-start">
+  <div class="w-full border-b-2 border-[#10348C] pb-12">
+    <h2 class="text-[62px] font-black text-gray-900 leading-tight">
+      Stand out from<br/>the competition
+    </h2>
+  </div>
+  
+  <div class="flex flex-col gap-10 items-start">
+    <p class="text-[40px] font-black text-[#10348C] leading-tight">
+      This is what sets<br/>you apart
+    </p>
+    <p class="text-[36px] font-semibold text-gray-900 leading-tight max-w-[700px]">
+      Premium design meets functional elegance. Every detail matters.
+    </p>
+  </div>
+  
+  <div class="w-full h-px bg-gray-300 my-4"></div>
+  
+  <div class="bg-white border-l-4 border-[#10348C] pl-12 py-8">
+    <p class="text-[36px] font-black text-gray-900 leading-tight">
+      Excellence is not an option
+    </p>
+  </div>
+</div>`
+  },
+  {
+    id: 'premium-insights',
+    name: 'Premium Insights',
+    category: 'stats',
+    code: `<div class="flex flex-col gap-14 items-start">
+  <div class="flex flex-col gap-6 items-start w-full">
+    <div class="text-[54px] font-black text-[#10348C] uppercase">
+      Key Insight
+    </div>
+    <h2 class="text-[62px] font-black text-gray-900 leading-tight">
+      Data tells the story<br/>your brand deserves
+    </h2>
+  </div>
+  
+  <div class="flex flex-col gap-8 items-start w-full">
+    <div class="flex flex-col gap-5 p-10 bg-gray-100">
+      <p class="text-[36px] font-black text-[#10348C]">
+        87%
+      </p>
+      <p class="text-[28px] font-semibold text-gray-900">
+        Of top performers use data-driven insights
+      </p>
+    </div>
+    
+    <div class="flex flex-col gap-5 p-10 bg-gray-100">
+      <p class="text-[36px] font-black text-[#10348C]">
+        3x
+      </p>
+      <p class="text-[28px] font-semibold text-gray-900">
+        Faster implementation with strategic alignment
+      </p>
+    </div>
+  </div>
+  
+  <div class="bg-[#10348C] w-full px-16 py-12 mt-8">
+    <p class="text-[40px] font-black text-white">
+      Transform insights into action
+    </p>
+  </div>
+</div>`
+  },
+  {
+    id: 'premium-conclusion',
+    name: 'Premium Conclusion',
+    category: 'list',
+    code: `<div class="flex flex-col gap-16 items-start justify-between min-h-[1100px]">
+  <div class="flex flex-col gap-12 items-start">
+    <div class="flex flex-col gap-6">
+      <div class="text-[28px] font-black text-[#10348C] uppercase tracking-wider">
+        The Bottom Line
+      </div>
+      <h2 class="text-[62px] font-black text-gray-900 leading-tight">
+        Three things that<br/>actually matter
+      </h2>
+    </div>
+    
+    <div class="flex flex-col gap-8 items-start">
+      <div class="flex flex-col gap-3 border-l-4 border-[#10348C] pl-8">
+        <p class="text-[28px] font-black text-[#10348C]">
+          01 — Strategy
+        </p>
+        <p class="text-[32px] font-semibold text-gray-900">
+          Clear direction wins
+        </p>
+      </div>
+      
+      <div class="flex flex-col gap-3 border-l-4 border-[#10348C] pl-8">
+        <p class="text-[28px] font-black text-[#10348C]">
+          02 — Execution
+        </p>
+        <p class="text-[32px] font-semibold text-gray-900">
+          Flawless delivery matters
+        </p>
+      </div>
+      
+      <div class="flex flex-col gap-3 border-l-4 border-[#10348C] pl-8">
+        <p class="text-[28px] font-black text-[#10348C]">
+          03 — Results
+        </p>
+        <p class="text-[32px] font-semibold text-gray-900">
+          Measurable impact always
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="w-full bg-[#10348C] px-16 py-14 flex flex-col gap-4">
+    <p class="text-[48px] font-black text-white">
+      Ready to begin?
+    </p>
+    <p class="text-[28px] font-semibold text-white">
+      Let's make it happen together
+    </p>
+  </div>
+</div>`
   }
 ];

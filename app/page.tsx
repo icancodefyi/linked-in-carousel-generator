@@ -58,7 +58,7 @@ export default function Page() {
   const [userProfile, setUserProfile] = useState<UserProfile>({
     name: 'Zaid Rakhange',
     handle: '@zaidrakhange',
-    image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-B9EXGspdelfTE05N9ZgHdVflQPMsoJ.png',
+    image: 'https://zaid.impiclabs.com/_next/image?url=%2Fassets%2Flogo.png&w=96&q=75',
   });
   const slideRef = useRef<HTMLDivElement | null>(null);
 
