@@ -26,7 +26,7 @@ export function HookSlide({
       slideNumber={slideNumber}
       totalSlides={totalSlides}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
         {lines.map((line, index) => (
           <div
             key={index}
@@ -42,7 +42,7 @@ export function HookSlide({
               letterSpacing: '0.02em',
               display: 'inline-block',
               wordWrap: 'break-word',
-              maxWidth: `${layoutConfig.contentWidth}px`,
+              maxWidth: `${layoutConfig.blockMaxWidth}px`,
             }}
           >
             {line}

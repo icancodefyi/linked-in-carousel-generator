@@ -74,8 +74,8 @@ export default function SlideLayout({
               onError={() => setImageError(true)}
               crossOrigin="anonymous"
               style={{
-                width: '56px',
-                height: '56px',
+                width: `${layoutConfig.typography.footerImage}px`,
+                height: `${layoutConfig.typography.footerImage}px`,
                 borderRadius: '50%',
                 objectFit: 'cover',
                 backgroundColor: '#1E40AF',
@@ -85,8 +85,8 @@ export default function SlideLayout({
           ) : (
             <div
               style={{
-                width: '56px',
-                height: '56px',
+                width: `${layoutConfig.typography.footerImage}px`,
+                height: `${layoutConfig.typography.footerImage}px`,
                 borderRadius: '50%',
                 backgroundColor: '#1E40AF',
                 display: 'flex',

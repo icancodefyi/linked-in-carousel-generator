@@ -61,6 +61,7 @@ export function HeadlineWithBlocksSlide({
                 letterSpacing: '0.01em',
                 lineHeight: 1.1,
                 display: 'inline-block',
+                maxWidth: `${layoutConfig.blockMaxWidth}px`,
               }}
             >
               {block}

@@ -9,18 +9,20 @@ export const layoutConfig = {
   rightPadding: 120,
   topPadding: 160,
   bottomPadding: 80,
-  contentWidth: 860,
-  verticalSpacing: 48,
+  contentWidth: 820,
+  verticalSpacing: 38,
+  blockMaxWidth: 680,
   
   // Typography sizes
   typography: {
     hookBlock: 96,
     headline: 60,
     secondaryBlocks: 72,
-    closingLine: 34,
-    footerName: 22,
+    closingLine: 38,
+    footerName: 24,
     footerHandle: 18,
     pageNumber: 16,
+    footerImage: 64,
   },
   
   // Colors

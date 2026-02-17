@@ -10,7 +10,7 @@ const interTight = Inter_Tight({
 });
 
 export const metadata: Metadata = {
-  title: 'v0 App',
+  title: 'Linkedin Carousel Generator',
   description: 'Created with v0',
   generator: 'v0.app',
   icons: {

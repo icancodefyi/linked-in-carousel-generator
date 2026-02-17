@@ -6,14 +6,22 @@ interface JSONInputProps {
 
 const EXAMPLE_JSON = `[
   {
-    "type": "hook",
-    "lines": ["YOU CANNOT", "CALL THIS", "EVIDENCE"]
+    "type": "composable",
+    "elements": [
+      { "type": "blueBlock", "text": "YOU CANNOT" },
+      { "type": "blueBlock", "text": "CALL THIS" },
+      { "type": "blueBlock", "text": "EVIDENCE" }
+    ]
   },
   {
-    "type": "headlineWithBlocks",
-    "headline": "Most AI detection tools only provide a probability score.",
-    "blocks": ["87% REAL", "92% FAKE"],
-    "closing": "That is not evidence."
+    "type": "composable",
+    "elements": [
+      { "type": "headline", "text": "Most AI detection tools only provide a probability score." },
+      { "type": "statBlock", "value": "87% REAL" },
+      { "type": "statBlock", "value": "92% FAKE" },
+      { "type": "spacer", "size": "medium" },
+      { "type": "paragraph", "text": "That is not evidence.", "size": "large" }
+    ]
   }
 ]`;
 
@@ -48,7 +56,7 @@ export default function JSONInput({ onJSONChange }: JSONInputProps) {
         }}
       />
       <p style={{ fontSize: '12px', color: '#6B7280', fontFamily: 'var(--font-inter-tight), system-ui, -apple-system, sans-serif' }}>
-        Paste JSON array or object to generate slides. Changes render instantly.
+        Compose slides with brand-locked elements. Available: headline, blueBlock, paragraph, statBlock, list, quote, divider, spacer.
       </p>
     </div>
   );

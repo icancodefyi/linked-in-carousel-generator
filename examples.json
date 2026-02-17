@@ -1,0 +1,84 @@
+[
+  {
+    "type": "composable",
+    "elements": [
+      { "type": "blueBlock", "text": "YOU CANNOT" },
+      { "type": "blueBlock", "text": "CALL THIS" },
+      { "type": "blueBlock", "text": "EVIDENCE" }
+    ]
+  },
+  {
+    "type": "composable",
+    "elements": [
+      { "type": "headline", "text": "Most AI detection tools only provide a probability score." },
+      { "type": "statBlock", "value": "87% REAL" },
+      { "type": "statBlock", "value": "92% FAKE" },
+      { "type": "spacer", "size": "medium" },
+      { "type": "paragraph", "text": "That is not evidence.", "size": "large" }
+    ]
+  },
+  {
+    "type": "composable",
+    "elements": [
+      { "type": "headline", "text": "Three principles for building in public:" },
+      { "type": "spacer", "size": "small" },
+      { "type": "list", "items": [
+        "Ship fast, learn faster",
+        "Show your work, not just results",
+        "Build community, not just products"
+      ], "ordered": true }
+    ]
+  },
+  {
+    "type": "composable",
+    "elements": [
+      { "type": "quote", "text": "The best way to predict the future is to invent it.", "author": "Alan Kay" },
+      { "type": "spacer", "size": "large" },
+      { "type": "paragraph", "text": "This is how I approach every project.", "size": "large" }
+    ]
+  },
+  {
+    "type": "composable",
+    "elements": [
+      { "type": "blueBlock", "text": "THE PROBLEM", "size": "large" },
+      { "type": "spacer", "size": "small" },
+      { "type": "paragraph", "text": "Most founders focus on features instead of outcomes. They build what's possible instead of what's valuable." },
+      { "type": "spacer", "size": "medium" },
+      { "type": "paragraph", "text": "That's backwards.", "size": "large" }
+    ]
+  },
+  {
+    "type": "composable",
+    "elements": [
+      { "type": "headline", "text": "2024 was a defining year" },
+      { "type": "divider", "thickness": "medium" },
+      { "type": "spacer", "size": "small" },
+      { "type": "statBlock", "value": "10M+", "label": "Users reached" },
+      { "type": "statBlock", "value": "250+", "label": "Features shipped" },
+      { "type": "statBlock", "value": "15X", "label": "Revenue growth" }
+    ]
+  },
+  {
+    "type": "composable",
+    "elements": [
+      { "type": "paragraph", "text": "Most people think:", "size": "normal" },
+      { "type": "spacer", "size": "small" },
+      { "type": "blueBlock", "text": "MORE FEATURES", "size": "medium" },
+      { "type": "blueBlock", "text": "= MORE VALUE", "size": "medium" },
+      { "type": "spacer", "size": "medium" },
+      { "type": "paragraph", "text": "But that's not how it works.", "size": "large" }
+    ]
+  },
+  {
+    "type": "composable",
+    "elements": [
+      { "type": "headline", "text": "The counterintuitive truth about productivity:" },
+      { "type": "spacer", "size": "medium" },
+      { "type": "paragraph", "text": "Doing less doesn't mean achieving less." },
+      { "type": "spacer", "size": "small" },
+      { "type": "paragraph", "text": "It means doing what matters." },
+      { "type": "spacer", "size": "large" },
+      { "type": "blueBlock", "text": "FOCUS > HUSTLE", "size": "medium" }
+    ]
+  }
+]
